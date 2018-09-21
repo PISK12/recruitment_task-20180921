@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -24,51 +25,51 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="Name", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-    private $name;
+    private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Surname", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $surname;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="DateOfBird", type="date")
-     */
-    private $dateOfBird;
+    private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Position", type="string", length=255)
-     */
-    private $position;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Login", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $login;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Password", type="string", length=255)
+     * @ORM\Column(name="surname", type="string", length=255)
      */
-    private $password;
+    private $surname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="position", type="string", length=255)
+     */
+    private $position;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOfBirth", type="date")
+     */
+    private $dateOfBirth;
 
 
     /**
@@ -79,6 +80,78 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -130,30 +203,6 @@ class User
     }
 
     /**
-     * Set dateOfBird
-     *
-     * @param \DateTime $dateOfBird
-     *
-     * @return User
-     */
-    public function setDateOfBird($dateOfBird)
-    {
-        $this->dateOfBird = $dateOfBird;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfBird
-     *
-     * @return \DateTime
-     */
-    public function getDateOfBird()
-    {
-        return $this->dateOfBird;
-    }
-
-    /**
      * Set position
      *
      * @param string $position
@@ -178,75 +227,71 @@ class User
     }
 
     /**
-     * Set email
+     * Set dateOfBirth
      *
-     * @param string $email
+     * @param \DateTime $dateOfBirth
      *
      * @return User
      */
-    public function setEmail($email)
+    public function setDateOfBirth($dateOfBirth)
     {
-        $this->email = $email;
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }
 
     /**
-     * Get email
+     * Get dateOfBirth
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getEmail()
+    public function getDateOfBirth()
     {
-        return $this->email;
+        return $this->dateOfBirth;
     }
 
-    /**
-     * Set login
-     *
-     * @param string $login
-     *
-     * @return User
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
+	/**
+	 * Returns the roles granted to the user.
+	 *
+	 * <code>
+	 * public function getRoles()
+	 * {
+	 *     return array('ROLE_USER');
+	 * }
+	 * </code>
+	 *
+	 * Alternatively, the roles might be stored on a ``roles`` property,
+	 * and populated in any number of different ways when the user object
+	 * is created.
+	 *
+	 * @return (Role|string)[] The user roles
+	 */
+	public function getRoles()
+	{
+		// TODO: Implement getRoles() method.
+	}
 
-        return $this;
-    }
+	/**
+	 * Returns the salt that was originally used to encode the password.
+	 *
+	 * This can return null if the password was not encoded using a salt.
+	 *
+	 * @return string|null The salt
+	 */
+	public function getSalt()
+	{
+		// TODO: Implement getSalt() method.
+	}
 
-    /**
-     * Get login
-     *
-     * @return string
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
+	/**
+	 * Removes sensitive data from the user.
+	 *
+	 * This is important if, at any given point, sensitive information like
+	 * the plain-text password is stored on this object.
+	 */
+	public function eraseCredentials()
+	{
+		// TODO: Implement eraseCredentials() method.
+	}
 }
 
