@@ -11,6 +11,7 @@ class IndexController extends Controller
 {
     /**
      * @Route("/",name="homepage")
+     * @Route("/index")
      */
     public function indexAction(EntityManagerInterface $entityManager)
     {
