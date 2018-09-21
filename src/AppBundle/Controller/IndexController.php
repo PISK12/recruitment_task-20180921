@@ -42,7 +42,7 @@ class IndexController extends Controller
 			    )
 		    );
 	    }else{
-		    return new Response("");
+		    return $this->redirectToRoute('login');
 	    }
     }
 
