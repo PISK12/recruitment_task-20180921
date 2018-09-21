@@ -12,6 +12,7 @@
 	use AppBundle\Entity\User;
 	use Doctrine\Common\DataFixtures\FixtureInterface;
 	use Doctrine\Common\Persistence\ObjectManager;
+	use Faker\Factory;
 	use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 	use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,6 +27,7 @@
 		 */
 		public function load(ObjectManager $manager)
 		{
+			$faker=Factory::create('pl_PL');
 			$user = new User();
 			$user
 				->setUsername("admin")
@@ -42,6 +44,26 @@
 			$user->setPassword($password);
 
 			$manager->persist($user);
+			for($i=0;$i<40;$i++){
+				$user = new User();
+				$user
+					->setUsername("user".$faker->word.$faker->word)
+					->setEmail("user".$i."@user.pl")
+					->setName($faker->firstName)
+					->setSurname($faker->lastName)
+					->setPosition($faker->randomElement(
+						["sprzedawca","konsultant","programista","dyrektor"]
+					));
+
+				$dateOfBirth=\DateTime::createFromFormat("Y-m-d",$faker->date("Y-m-d",'-20 years'));
+				$user->setDateOfBirth($dateOfBirth);
+
+				$encoder=$this->container->get('security.password_encoder');
+				$password=$encoder->encodePassword($user,"user".$i);
+				$user->setPassword($password);
+
+				$manager->persist($user);
+			}
 			$manager->flush();
 
 
