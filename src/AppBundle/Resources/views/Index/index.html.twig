@@ -4,7 +4,6 @@
 
 {% block body %}
     {% if dataForTable is defined %}
-        {{ dump(dataForTable) }}
         <table>
             <tr>
                 {% for column in columns %}
