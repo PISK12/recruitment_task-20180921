@@ -14,30 +14,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('base.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-
-	/**
-	 * @Route("/login", name="login")
-	 */
-	public function loginAction(Request $request)
-	{
-		// replace this example code with whatever you need
-		return $this->render('default/index.html.twig', [
-			'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-		]);
-	}
-
-	/**
-	 * @Route("/register", name="register")
-	 */
-	public function registerAction(Request $request)
-	{
-		// replace this example code with whatever you need
-		return $this->render('default/index.html.twig', [
-			'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-		]);
-	}
 }
