@@ -1,0 +1,41 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Index:index{% endblock %}
+
+{% block body %}
+    {% if dataForTable is defined %}
+        {{ dump(dataForTable) }}
+        <table>
+            <tr>
+                {% for column in columns %}
+                    {% if column is iterable %}
+                        <th>{{ column[column|length-1] }}</th>
+                    {% else %}
+                        <th>{{ column }}</th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% for entity in dataForTable%}
+                <tr>
+                    {% for column in columns %}
+                        {% if column is iterable %}
+                            {% set len= column|length-1%}
+
+                            {% set var=entity %}
+                            {% for i in 0..len %}
+                                {% set var=attribute(var,column[i]) %}
+                            {% endfor %}
+                            <td>{{ var }}</td>
+                        {% elseif attribute(entity,column) is defined %}
+                            {% if attribute(entity,column).timestamp is defined %}
+                                <td>{{ attribute(entity,column)|date('Y-m-d')}}</td>
+                            {% else %}
+                                <td>{{ attribute(entity,column)}}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

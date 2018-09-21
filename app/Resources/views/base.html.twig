@@ -8,9 +8,10 @@
     </head>
     <body>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="/logout">Logout</a>
+            <a href="{{ path("logout") }}">Logout</a>
         {% else %}
             <a href="{{ path("login") }}">Login</a>
+            <a href="\register">Register</a>
         {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
