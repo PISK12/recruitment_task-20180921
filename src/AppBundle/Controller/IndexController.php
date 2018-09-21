@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController extends Controller
 {
@@ -41,7 +42,7 @@ class IndexController extends Controller
 			    )
 		    );
 	    }else{
-		    return $this->render('Base.html.twig',array());
+		    return new Response("");
 	    }
     }
 
